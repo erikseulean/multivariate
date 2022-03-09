@@ -36,9 +36,8 @@
     \item The dataset contains 172 observations and 17 numerical variables. A big majority of the variables have a high correlation between them. Only one of the majors contains empty values, which will be removed from the analysis.
     \item Given that the variables are on different scales, these will be scaled and centered before applying the analysis. This will help with both dimensionality reduction and clustering, in particular, it would avoid having one variable dominate the others because it has variance much bigger than the rest in addition to making features on different scales comparable.
     \item Before applying clustering, PCA will be performed to retain the components with the highest variance and reduce the dimensions. To select the number of dimensions, will use scree plots and plot the cumulative explained variance vs dimension. Given that the numerical variables have a high correlation, the expectation is that PCA will reduce the dimension from 17 numerical variables to about 2-3 while also explain 80-90\% of variance.
-    \item Run k-means clustering with variable number of clusters. As with PCA, use scree plots to consider what is the optimal number of cluster that reduces the within-group SSE. Additionally, use silhouette plots to check how well majors are classified.
-    \item Analyze the clusters and check the overlap with the 16 existing major categories available, and compute a measure of cluster purity, by considering how many major categories are part of the same cluster.
-    \item Make plots and summaries to draw conclusion 
+    \item Run k-means clustering with multiple values for the number of clusters. As with PCA, use scree plots to consider what is the optimal number of cluster that reduces the within-group SSE. Additionally, use silhouette plots to check how well majors are classified.
+    \item Analyze the clusters and check the overlap with the 16 existing major categories available, and compute a measure of cluster purity, by considering how many major categories are part of the same cluster and draw conclusions that answer the research questions proposed.
 \end{itemize}
 
 \begin{figure} [H]
