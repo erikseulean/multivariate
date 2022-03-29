@@ -7,6 +7,7 @@
 \usepackage{listings}
 \usepackage{enumitem}
 \usepackage{caption}
+\usepackage{longtable}
 \usepackage[a4paper,margin=1in]{geometry}
 
 \renewcommand{\baselinestretch}{1.5}
@@ -40,17 +41,17 @@ For the purpose of this analysis, the two main methods that were used are princi
 
 As we can see in Figure~\ref{fig:featurecorrelation} there are two well-defined correlated groups of features, one containing 15 features that have a high correlation between them, and another one that contains 4 features. The only negative correlation that we can see is between the share of female graduates, and median, 25\% and 75\% quantiles, where higher the number of female graduates relates to lower incomes.
 
-After applying PCA in this scenario, 83\% of the variability in the initial data is represented by 2 components, while 3 components would represent 89\% of variability. In order to pick the number of components visually, the scree plot in Figure~\ref{fig:screeplot} indicates that 2 components could be sufficient. From dimension 3 onwards, the percentage of variance explained is not dropping significantly anymore and these components together represent a small part of the variability in the dataset.
+After applying PCA in this scenario, 83\% of the variability in the initial data is represented by 2 components, while 3 components would represent 89\% of variability. In order to pick the number of components visually, the scree plot in Figure~\ref{fig:screeplot} indicates that 2 components could be sufficient. From dimension 3 onwards, the percentage of variance explained is not dropping significantly anymore and these components together represent a small part of the total variability in the dataset.
 
 \begin{figure} [H]
     \begin{center}
-        \includegraphics[scale=0.5, width=10cm]{images/scree_plot.png}
+        \includegraphics[scale=0.5, width=9.5cm]{images/scree_plot.png}
         \caption{Percentage of variance explained by each dimension}
         \label{fig:screeplot}
     \end{center}
 \end{figure}
 
-Naturally, after selecting the first 2 PCAs, the question arises in understanding what these two components represent and how they relate to the initial features in the dataset. In Figure~\ref{fig:featuredirection} the first component seems to be aligned with the first correlated group of features in figure~\ref{fig:featurecorrelation}, the higher the number of women, men, unemployment rate, the higher the value on the x-axis. The second PCA is correlated with the number of female graduates and inverse correlated with the three variables representing the income after university.
+Naturally, after selecting the first 2 PCAs, the question arises in understanding what these two components represent and how they relate to the initial features in the dataset. In Figure~\ref{fig:featuredirection} the first component, denoted as Dim 1, on the x axis, seems to be aligned with the first correlated group of features in figure~\ref{fig:featurecorrelation}, the higher the number of women, men, unemployment rate, the higher the value on the x-axis. The second PCA is correlated with the number of female graduates and inverse correlated with the three variables representing the income after university.
 
 \begin{figure} [H]
     \begin{center}
@@ -72,9 +73,9 @@ In order to be able to group the majors into clusters, the first two PCAs are us
     \end{center}
 \end{figure}
 
-\section*{Results} 
+\section*{Results and summaries} 
 
-The socio-economic features presented in the initial dataset only partially recover the 16 major categories existing in the initial dataset and the majority of the clusters are impure. Nevertheless, the results are worth exploring further, given that there are majors that are across major categories that are worth to be part of the same cluster. The clusters will be considered in order of increasing Gini Index (lower the Gini Index higher the purity).
+The socio-economic features presented in the initial dataset only partially recover the 16 major categories existing in the initial dataset and the majority of the clusters are impure. Nevertheless, the results are worth exploring further, given that there are majors that are across major categories that probably should to be part of the same cluster.
 
 \paragraph*{Gini Index 0 - maximum purity}
 
@@ -95,7 +96,9 @@ The socio-economic features presented in the initial dataset only partially reco
     \captionof{table}{Cluster with the highest purity} 
 \end{center}
 
-This cluster represents a subset of engineering majors that are probably the closest related together even if we don't consider socio-economic features. All the 4 majors are related by the fact that they all deal with highly valuable commodities, the extraction and processing of these commodities. In this regard, the clustering is so good that if somebody would be asked to handpick 4 majors that are related to each other from the entire dataset, there would be a high probability to pick these 4 majors.
+
+
+This cluster represents a subset of engineering majors that are probably the closest related to each other even if we don't consider socio-economic features. All the 4 majors are related by the fact that they all deal with highly valuable commodities, the extraction and processing of these commodities. In this regard, the clustering is so good that if somebody would be asked to handpick 4 majors that are related to each other from the entire dataset, there would be a high probability to pick these 4 majors.
 
 \paragraph*{Gini Index 0.44}
 
@@ -122,30 +125,30 @@ This cluster represents a subset of engineering majors that are probably the clo
 
 While this cluster has majors coming from two major categories, resulting in a higher Gini Index, the majors are all related to each other. The job prospects between them are generally the same, all requiring a high level of mathematical understanding to be successful. In many situations, somebody studying mechanical engineering or electrical engineering can easily do a postgraduate in computer science or vice versa, and furthermore the job offerings for graduates from one major are likely accessible to candidates from any of the other degrees. As a conclusion, this cluster is expected as well, maybe not as closely related as the previous one, but not far apart either.
 
-\paragraph*{Gini Index 0.62}
+\paragraph*{Gini Index 0.62:}As we can see in Figure~\ref{table:three} (Appendix) compared to the other two clusters, this cluster contains 29 majors across 6 different major categories.
 
-Compared to the other two clusters, this cluster contains 29 majors across 6 different major categories:
+% \begin{itemize}[leftmargin=*]
+%     \item  \textbf{Engineering:} Naval Architecture, Chemical, Computer, Aerospace, Biomedical, Materials, Mechanics, Biological, Industrial and Manufacturing, Architectural, Electrical, Materials, Miscellaneous, Environmental, Engineering Technologies, Geological and Geophysical, Industrial production, Construction
+%     \item \textbf{Computer \& Mathematics:} Computer and information systems, Information sciences, Mathematics and computer science
+%     \item \textbf{Business:} Actuarial science, Management Information Systems and Statistics, Operations, Logistics and E-commence
+%     \item \textbf{Industrial Arts:} Construction services, Military Technologies 
+%     \item \textbf{Law \& Public policy:} Court reporting, Public policy
+%     \item \textbf{Physical sciences}: Astronomy and astrophysics
+% \end{itemize}
 
-\begin{itemize}[leftmargin=*]
-    \item  \textbf{Engineering:} Naval Architecture, Chemical, Computer, Aerospace, Biomedical, Materials, Mechanics, Biological, Industrial and Manufacturing, Architectural, Electrical, Materials, Miscellaneous, Environmental, Engineering Technologies, Geological and Geophysical, Industrial production, Construction
-    \item \textbf{Computer \& Mathematics:} Computer and information systems, Information sciences, Mathematics and computer science
-    \item \textbf{Business:} Actuarial science, Management Information Systems and Statistics, Operations, Logistics and E-commence
-    \item \textbf{Industrial Arts:} Construction services, Military Technologies 
-    \item \textbf{Law \& Public policy:} Court reporting, Public policy
-    \item \textbf{Physical sciences}: Astronomy and astrophysics
-\end{itemize}
+Clearly these majors have much higher dissimilarities in terms of topics than the previous two clusters and contains some majors that are STEM while others that are humanities. While the business majors and the industrial arts ones are somehow related to the engineering or the mathematics ones, the majors from the law and public policy category aren't related by area of study. In this case, socio-economic factors are the ones that drive the clustering of unrelated majors together. The share of women in this cluster is below 50\% for almost all degrees, while the mean income is the second highest among all clusters.  
 
-Clearly these majors have much higher dissimilarities in terms of topics than the previous two clusters and contains some majors that are STEM while others that are humanities. While the business majors and the industrial arts ones are somehow related to the engineering or the mathematics ones, the majors from the law and public policy category aren't related by area of study. In this case, socio-economic factors are the ones that drive the clustering of unrelated majors together. 
-
-The rest of the clusters have a Gini Index ranging between 0.78 and 0.9 and having between 2 and 48 majors.
-
-\subsection*{Results and summaries}
+The rest of the clusters have a Gini Index ranging between 0.78 and 0.9 and having between 2 and 48 majors. These are presented in the Appendix.
 
 \paragraph*{Which cluster has the highest median income ?}
 The cluster that contains the 4 engineering degrees: petroleum, mining and materials, metallurgical and nuclear engineering has a median income of \$80,000, which is \$25,000 more than the second-highest cluster, but it also has the lowest percentage of female graduates, with only 13\% and also the highest unemployment rate of 8\%. This is definitely a high-risk high reward degree, where you can have a very good wage early in your career but also have higher chance than other majors to be unemployed. The median income of this cluster twice the median of all 172 majors available in the dataset.
 
 \paragraph*{Which cluster has the highest percentage of female graduates ?}
 
+Cluster 8 in Table~\ref{table:eight} represents the cluster with the highest percentage of female graduates, 71\%. This cluster does not contain any science related degrees and also has the lowest median income, with \$31,000, which is 25\% lower than the median of all degrees. While the unemployment rate is lower than the mean unemployment among all majors, the wages are likely to lead to a salary gap between men and women due to a disproportionate number of men and women willing to study these topics. The only degree in this cluster that has a higher percentage of male students is Theology and religious vocations, which is expected.
+
+\subsection*{Conclusions}
+The clustering strategy used separates clearly between STEM degrees and humanities in most clusters. If graduation income is a concern, students should pick degrees from clusters that have most majors from STEM. Similarly, governments should consider making these degrees more atractive for female students as the income disparity is driven by disproportionate percentages of male and female students. Cluster 9 in Figure~\ref{fig:nine} offer the highest variance between degrees while keeps the proportion of female to male students close to 1 and has median income close to the median of all majors.  
 
 
 \begin{thebibliography}{9}
@@ -163,5 +166,436 @@ The cluster that contains the 4 engineering degrees: petroleum, mining and mater
 
 \appendix
 \section {Clusters}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+    Metallurgical engineering & Engineering \\
+    \hline
+    Mining and mineral engineering & Engineering \\
+    \hline
+    Nuclear engineering & Engineering \\
+    \hline
+    Petroleum engineering & Engineering \\
+    \hline
+    \end {tabular}
+    \captionof{table}{Cluster 1}
+\end{center}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+
+    Computer science & Computers \& mathematics \\
+    \hline
+    Mathematics & Computers \& mathematics \\
+    \hline
+    Civil engineering & Engineering \\
+    \hline
+    Electrical engineering & Engineering \\
+    \hline
+    General engineering & Engineering \\
+    \hline
+    Mechanical engineering & Engineering \\
+    \hline
+    \end {tabular}
+    \captionof{table}{Cluster 2}
+\end{center}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+    Actuarial science & Business \\
+    \hline
+    Management information systems and statistics & Business \\
+    \hline
+    Operations logistics and e-commerce & Business \\
+    \hline
+    Computer and information systems & Computers \& mathematics \\
+    \hline
+    Information sciences & Computers \& mathematics \\
+    \hline
+    Mathematics and computer science & Computers \& mathematics \\
+    \hline
+    Aerospace engineering & Engineering \\
+    \hline
+    Architectural engineering & Engineering \\
+    \hline
+    Biological engineering & Engineering \\
+    \hline
+    Biomedical engineering & Engineering \\
+    \hline
+    Chemical engineering & Engineering \\
+    \hline
+    Computer engineering & Engineering \\
+    \hline
+    Electrical engineering technology & Engineering \\
+    \hline
+    Engineering mechanics physics and science & Engineering \\
+    \hline
+    Engineering technologies & Engineering \\
+    \hline
+    Environmental engineering & Engineering \\
+    \hline
+    Geological and geophysical engineering & Engineering \\
+    \hline
+    Industrial and manufacturing engineering & Engineering \\
+    \hline
+    Industrial production technologies & Engineering \\
+    \hline
+    Materials engineering and materials science & Engineering \\
+    \hline
+    Materials science & Engineering \\
+    \hline
+    Miscellaneous engineering & Engineering \\
+    \hline
+    Naval architecture and marine engineering & Engineering \\
+    \hline
+    Construction services & Industrial arts \& consumer services \\
+    \hline
+    Military technologies & Industrial arts \& consumer services \\
+    \hline
+    Court reporting & Law \& public policy \\
+    \hline
+    Public policy & Law \& public policy \\
+    \hline
+    Astronomy and astrophysics & Physical sciences \\
+    \hline
+    Physics & Physical sciences \\
+    \hline
+\end {tabular}
+\captionof{table}{Cluster 3}
+\label{table:three}
+\end{center}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+    Business management and administration & Business \\
+    \hline
+    Psychology & Psychology \& social work \\
+    \hline
+    \end {tabular}
+    \captionof{table}{Cluster 4}
+\end{center}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+    Biology & Biology \& life science \\
+    \hline
+    General business & Business \\
+    \hline
+    Marketing and marketing research & Business \\
+    \hline
+    Communications & Communications \& journalism \\
+    \hline
+    Nursing & Health \\
+    \hline
+    English language and literature & Humanities \& liberal arts \\
+    \hline
+    \end {tabular}
+    \captionof{table}{Cluster 5}
+\end{center}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+
+    Commercial art and graphic design & Arts \\
+    \hline
+    Accounting & Business \\
+    \hline
+    Finance & Business \\
+    \hline
+    Elementary education & Education \\
+    \hline
+    General education & Education \\
+    \hline
+    History & Humanities \& liberal arts \\
+    \hline
+    Physical fitness parks recreation and leisure & Industrial arts \& consumer services \\
+    \hline
+    Criminal justice and fire protection & Law \& public policy \\
+    \hline
+    Economics & Social science \\
+    \hline
+    Political science and government & Social science \\
+    \hline
+    Sociology & Social science \\
+    \hline
+    \end {tabular}
+    \captionof{table}{Cluster 6}
+\end{center}
+
+\begin{center}
+    \begin{tabular} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+    Drama and theater arts & Arts \\
+    \hline
+    Film video and photographic arts & Arts \\
+    \hline
+    Fine arts & Arts \\
+    \hline
+    Music & Arts \\
+    \hline
+    Hospitality management & Business \\
+    \hline
+    Advertising and public relations & Communications \& journalism \\
+    \hline
+    Journalism & Communications \& journalism \\
+    \hline
+    Mass media & Communications \& journalism \\
+    \hline
+    Architecture & Engineering \\
+    \hline
+    Treatment therapy professions & Health \\
+    \hline
+    Anthropology and archeology & Humanities \& liberal arts \\
+    \hline
+    Foreign language studies & Humanities \& liberal arts \\
+    \hline
+    Liberal arts & Humanities \& liberal arts \\
+    \hline
+    Philosophy and religious studies & Humanities \& liberal arts \\
+    \hline
+    Family and consumer sciences & Industrial arts \& consumer services \\
+    \hline
+    Chemistry & Physical sciences \\
+    \hline
+    Multi-disciplinary or general science & Physical sciences \\
+    \hline
+    Social work & Psychology \& social work \\
+    \hline
+    \end {tabular}
+    \captionof{table}{Cluster 7}
+\end{center}
+
+\begin{center}
+    \begin{longtable} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+    Animal sciences & Agriculture \& natural resources \\
+    \hline
+    Miscellaneous agriculture & Agriculture \& natural resources \\
+    \hline
+    Studio arts & Arts \\
+    \hline
+    Visual and performing arts & Arts \\
+    \hline
+    Ecology & Biology \& life science \\
+    \hline
+    Environmental science & Biology \& life science \\
+    \hline
+    Miscellaneous biology & Biology \& life science \\
+    \hline
+    Physiology & Biology \& life science \\
+    \hline
+    Zoology & Biology \& life science \\
+    \hline
+    Human resources and personnel management & Business \\
+    \hline
+    Art and music education & Education \\
+    \hline
+    Early childhood education & Education \\
+    \hline
+    Educational administration and supervision & Education \\
+    \hline
+    Language and drama education & Education \\
+    \hline
+    Library science & Education \\
+    \hline
+    Mathematics teacher education & Education \\
+    \hline
+    Physical and health education teaching & Education \\
+    \hline
+    Science and computer teacher education & Education \\
+    \hline
+    Secondary teacher education & Education \\
+    \hline
+    Social science or history teacher education & Education \\
+    \hline
+    Special needs education & Education \\
+    \hline
+    Teacher education: multiple levels & Education \\
+    \hline
+    Communication disorders sciences and services & Health \\
+    \hline
+    Community and public health & Health \\
+    \hline
+    General medical and health services & Health \\
+    \hline
+    Health and medical administrative services & Health \\
+    \hline
+    Health and medical preparatory programs & Health \\
+    \hline
+    Miscellaneous health medical professions & Health \\
+    \hline
+    Nutrition sciences & Health \\
+    \hline
+    Area ethnic and civilization studies & Humanities \& liberal arts \\
+    \hline
+    Art history and criticism & Humanities \& liberal arts \\
+    \hline
+    Composition and rhetoric & Humanities \& liberal arts \\
+    \hline
+    Humanities & Humanities \& liberal arts \\
+    \hline
+    Intercultural and international studies & Humanities \& liberal arts \\
+    \hline
+    Linguistics and comparative language and literature & Humanities \& liberal arts \\
+    \hline
+    Other foreign languages & Humanities \& liberal arts \\
+    \hline
+    Theology and religious vocations & Humanities \& liberal arts \\
+    \hline
+    Cosmetology services and culinary arts & Industrial arts \& consumer services \\
+    \hline
+    Multi/interdisciplinary studies & Interdisciplinary \\
+    \hline
+    Geosciences & Physical sciences \\
+    \hline
+    Clinical psychology & Psychology \& social work \\
+    \hline
+    Counseling psychology & Psychology \& social work \\
+    \hline
+    Educational psychology & Psychology \& social work \\
+    \hline
+    Human services and community organization & Psychology \& social work \\
+    \hline
+    Miscellaneous psychology & Psychology \& social work \\
+    \hline
+    Criminology & Social science \\
+    \hline
+    General social sciences & Social science \\
+    \hline
+    Interdisciplinary social sciences & Social science \\
+    \hline
+\end {longtable}
+\captionof{table}{Cluster 8}
+\label{table:eight}
+\end{center}
+
+\begin{center}
+    \begin{longtable} {|| c c ||}
+    \hline
+    Major & Major category \\ [0.5ex]
+    \hline\hline
+
+    Agricultural economics & Agriculture \& natural resources \\
+    \hline
+    Agriculture production and management & Agriculture \& natural resources \\
+    \hline
+    Forestry & Agriculture \& natural resources \\
+    \hline
+    General agriculture & Agriculture \& natural resources \\
+    \hline
+    Natural resources management & Agriculture \& natural resources \\
+    \hline
+    Plant science and agronomy & Agriculture \& natural resources \\
+    \hline
+    Soil science & Agriculture \& natural resources \\
+    \hline
+    Miscellaneous fine arts & Arts \\
+    \hline
+    Biochemical sciences & Biology \& life science \\
+    \hline
+    Botany & Biology \& life science \\
+    \hline
+    Cognitive science and biopsychology & Biology \& life science \\
+    \hline
+    Genetics & Biology \& life science \\
+    \hline
+    Microbiology & Biology \& life science \\
+    \hline
+    Molecular biology & Biology \& life science \\
+    \hline
+    Neuroscience & Biology \& life science \\
+    \hline
+    Pharmacology & Biology \& life science \\
+    \hline
+    Business economics & Business \\
+    \hline
+    International business & Business \\
+    \hline
+    Miscellaneous business \& medical administration & Business \\
+    \hline
+    Applied mathematics & Computers \& mathematics \\
+    \hline
+    Communication technologies & Computers \& mathematics \\
+    \hline
+    Computer administration management and security & Computers \& mathematics \\
+    \hline
+    Computer networking and telecommunications & Computers \& mathematics \\
+    \hline
+    Computer programming and data processing & Computers \& mathematics \\
+    \hline
+    Statistics and decision science & Computers \& mathematics \\
+    \hline
+    Miscellaneous education & Education \\
+    \hline
+    School student counseling & Education \\
+    \hline
+    Engineering and industrial management & Engineering \\
+    \hline
+    Mechanical engineering related technologies & Engineering \\
+    \hline
+    Miscellaneous engineering technologies & Engineering \\
+    \hline
+    Medical assisting services & Health \\
+    \hline
+    Medical technologies technicians & Health \\
+    \hline
+    Pharmacy pharmaceutical sciences and administration & Health \\
+    \hline
+    United states history & Humanities \& liberal arts \\
+    \hline
+    Electrical, mechanical, and precision technologies & Industrial arts \& consumer services \\
+    \hline
+    Transportation sciences and technologies & Industrial arts \& consumer services \\
+    \hline
+    Pre-law and legal studies & Law \& public policy \\
+    \hline
+    Public administration & Law \& public policy \\
+    \hline
+    Atmospheric sciences and meteorology & Physical sciences \\
+    \hline
+    Geology and earth science & Physical sciences \\
+    \hline
+    Nuclear, industrial radiology, and biological technologies & Physical sciences \\
+    \hline
+    Oceanography & Physical sciences \\
+    \hline
+    Physical sciences & Physical sciences \\
+    \hline
+    Industrial and organizational psychology & Psychology \& social work \\
+    \hline
+    Social psychology & Psychology \& social work \\
+    \hline
+    Geography & Social science \\
+    \hline
+    International relations & Social science \\
+    \hline
+    Miscellaneous social sciences & Social science \\
+    \hline
+\end {longtable}
+\captionof{table}{Cluster 9}
+\label{fig:nine}
+\end{center}
 
 \end{document}\models
