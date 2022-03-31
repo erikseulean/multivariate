@@ -14,8 +14,9 @@
 \everymath{\displaystyle}
 \date{}
 
-\title{Dealing with Mickey Mouse degrees or what you shouldn't study if you care about a good life}
+\title{Clustering majors by socio-economic properties. A guide for students and governments}
 
+\author{Erik-Cristian Seulean, 210001411, Group 5}
 \begin{document}
 \newpage
 \maketitle
@@ -26,7 +27,7 @@ A few days ago, Nadhim Zahawi, the Secretary of State for Education in UK decide
 With this idea in mind, both students and governments would benefit from statistical analysis done on university majors. This analysis would allow clustering university majors based on socio-economic characteristics, and enable both parties to take informed decision on what degree to pursue or what universities to cut from public funding due to low employability of graduates. Ultimately, both students and governments are interested in knowing what groups of majors have the highest unemployment rate and what universities offer the highest median income, in addition to preferable majors for each gender. As a result, the analysis in the following section will focus on answering these questions and offer scientific advice in this regard.
 
 \subsection*{The data}
-The data used in this analysis consists of 172 observations and 17 numerical variables. Each observation represents one major, and includes socio-economic properties such as number of female graduates, unemployment rate after graduation, number of jobs that require college education or median income. The source for this data is the American Community Survey and represents majors surveyed between 2010-2012\cite{acs}, and was initially used as part of an article appeared on FiveThirtyEight \cite{fivethirtyeight} that offered insights into picking college majors based on economic insights.
+The data used in this analysis consists of 172 observations and 17 numerical variables. Each observation represents one major, and includes socio-economic properties such as number of female graduates, unemployment rate after graduation, number of jobs that require college education or median income. The source for this data is the American Community Survey and represents majors surveyed between 2010-2012\cite{acs}, and was initially used as part of an article appeared on FiveThirtyEight \cite{fivethirtyeight}, that offered insights into picking college majors based on economic insights.
 
 \section*{Technical details}
 For the purpose of this analysis, the two main methods that were used are principal component analysis (PCA) and k-means clustering. Principal component analysis is a method that helps reduce the number of features present in a dataset to a smaller dimension, while keeping as much variability in the data as possible. In general, PCA is useful for datasets that contain a high number of correlated features which can be combined into a subset of features that are uncorrelated, but maintain as much variability of initial features as possible.
@@ -51,7 +52,7 @@ After applying PCA in this scenario, 83\% of the variability in the initial data
     \end{center}
 \end{figure}
 
-Naturally, after selecting the first 2 PCAs, the question arises in understanding what these two components represent and how they relate to the initial features in the dataset. In Figure~\ref{fig:featuredirection} the first component, denoted as Dim 1, on the x axis, seems to be aligned with the first correlated group of features in figure~\ref{fig:featurecorrelation}, the higher the number of women, men, unemployment rate, the higher the value on the x-axis. The second PCA is correlated with the number of female graduates and inverse correlated with the three variables representing the income after university.
+Naturally, after selecting the first 2 PCAs, the question arises in understanding what these two components represent and how they relate to the initial features in the dataset. In Figure~\ref{fig:featuredirection} the first component, denoted as Dim 1, on the x-axis, seems to be aligned with the first correlated group of features in figure~\ref{fig:featurecorrelation}, the higher the number of women, men, unemployment rate, the higher the value on the x-axis. The second PCA is correlated with the number of female graduates and inverse correlated with the three variables representing the income after university.
 
 \begin{figure} [H]
     \begin{center}
@@ -63,7 +64,7 @@ Naturally, after selecting the first 2 PCAs, the question arises in understandin
 
 This is further evidence that the first two components are capable of representing the most important characteristics of the dataset, which were discovered during the initial exploratory analysis (via the correlation plot).
 
-In order to be able to group the majors into clusters, the first two PCAs are used as input to a k-means clustering algorithm. K-means works by allocating points to a cluster based on the distance to the center of each cluster and selecting the cluster that yields the shortest distance. The algorithm works iteratively, by computing the cluster center and evaluates which cluster the points belong to, steps that are being repeated until no more significant changes occur. The algorithm requires the number of clusters to be specified beforehand or if not known, using visual tools such as silhouette or scree plots can help to find the appropriate number of clusters. In this particular scenario, neither scree plots nor the silhouette method gives satisfactory results, both suggesting that 2 clusters would be the best configuration. An alternative solution was considered in this scenario, using the fact that each major is part of one of the 16 major categories available. For a given number of clusters, from 2 to 16, the purity of each cluster was calculated using a Gini Index~\cite{giniindex}, where a pure cluster represents a cluster that contains only majors part of the same major category. From the 15 possible options for the number of clusters, 9 clusters represent the best mean Gini Index score.
+In order to be able to group the majors into clusters, the first two PCAs are used as input to a k-means clustering algorithm. The reason that PCA is applied before using k-means is that it helps reduce the noise in the data and the dimension of the features, which could potentially speed up the clustering algorithm \cite{kmeanspca}.  K-means works by allocating points to a cluster based on the distance to the center of each cluster and allocating the cluster that yields the shortest distance. The algorithm works iteratively, by computing the cluster center and evaluates which cluster the points belong to, steps that are being repeated until no more significant changes occur. The algorithm requires the number of clusters to be specified beforehand or if not known, using visual tools such as silhouette or scree plots can help to find the appropriate number of clusters. In this particular scenario, neither scree plots nor the silhouette method gives satisfactory results, both suggesting that 2 clusters would be the best configuration. An alternative solution was considered in this scenario, using the fact that each major is part of one of the 16 major categories available. For a given number of clusters, from 2 to 16, the purity of each cluster was calculated using a Gini Index~\cite{giniindex}, where a pure cluster represents a cluster that contains only majors part of the same major category. From the 15 possible options for the number of clusters, 9 clusters represent the best mean Gini Index score.
 
 \begin{figure} [H]
     \begin{center}
@@ -148,9 +149,9 @@ The cluster that contains the 4 engineering degrees: petroleum, mining and mater
 Cluster 8 in Table~\ref{table:eight} represents the cluster with the highest percentage of female graduates, 71\%. This cluster does not contain any science related degrees and also has the lowest median income, with \$31,000, which is 25\% lower than the median of all degrees. While the unemployment rate is lower than the mean unemployment among all majors, the wages are likely to lead to a salary gap between men and women due to a disproportionate number of men and women willing to study these topics. The only degree in this cluster that has a higher percentage of male students is Theology and religious vocations, which is expected.
 
 \subsection*{Conclusions}
-The clustering strategy used separates clearly between STEM degrees and humanities in most clusters. If graduation income is a concern, students should pick degrees from clusters that have most majors from STEM. Similarly, governments should consider making these degrees more atractive for female students as the income disparity is driven by disproportionate percentages of male and female students. Cluster 9 in Figure~\ref{fig:nine} offer the highest variance between degrees while keeps the proportion of female to male students close to 1 and has median income close to the median of all majors.  
+The clustering strategy used separates clearly between STEM degrees and humanities in most clusters. If graduation income is a concern, students should pick degrees from clusters that have most majors from STEM. Similarly, governments should consider making these degrees more atractive for female students as the income disparity is driven by disproportionate percentages of male and female students in clusters of majors that have a higher than average income. Cluster 9 in Figure~\ref{fig:nine} offer the highest range of topics between majors while keeps the proportion of female to male students close to 1 and has median income close to the median of all majors. This represents the most balanced choice, that offers a bit of everything and students should consider if any of the majors in this cluster are interesting enough.
 
-
+\newpage
 \begin{thebibliography}{9}
     \bibitem{dailymail}
         dailymail.co.uk/news/article-10631871/Education-Secretary-Nadhim-Zahawi-plans-crackdown-Mickey-Mouse-degrees.html \emph{Education Secretary Nadhim Zahawi plans crackdown on 'Mickey Mouse' degrees - with universities required to publish drop-out rate and graduate job outcomes on every advert}
@@ -158,12 +159,17 @@ The clustering strategy used separates clearly between STEM degrees and humaniti
         census.gov/programs-surveys/acs/microdata.html \emph{United States Census Bureau}
     \bibitem{fivethirtyeight}
         FiveThirtyEight.com \emph{American website that focuses on opinion poll analysis, politics, economics, and sports blogging}
+    \bibitem{kmeanspca}
+        https://ranger.uta.edu/~chqding/papers/KmeansPCA1.pdf
+        \emph{K-means clustering via Principal Component Analysis - Chris Ding, Xiaofeng He}
     \bibitem{majorpick}
         fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major \emph{The Economic Guide To Picking A College Major}
     \bibitem{giniindex}
         \emph{An Introduction to Statistical Learning, Gini Index - James, Witten, Hastie, Tibshirani}
+
 \end{thebibliography}
 
+\newpage
 \appendix
 \section {Clusters}
 
@@ -597,5 +603,4 @@ The clustering strategy used separates clearly between STEM degrees and humaniti
 \captionof{table}{Cluster 9}
 \label{fig:nine}
 \end{center}
-
 \end{document}\models
